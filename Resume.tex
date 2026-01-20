@@ -29,6 +29,8 @@ urlcolor=MyDarkBlue}
 \definecolor{contactgray}{gray}{0.3}
 \pagestyle{empty}
 
+\pdfgentounicode=1
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 %  Template Definitions  %
 %%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -97,7 +99,7 @@ urlcolor=MyDarkBlue}
 \begin{resume_header}
 \name{William Liao}
 % \program{Mathematics \& Computer Science @ UMD}
-\contact{william.q.liao@gmail.com \hspace{2cm} +1 (610) 999-0818}
+\contact{william.q.liao@gmail.com \hspace{1cm} +1 (610) 999-0818 \hspace{1cm} \href{https://www.linkedin.com/in/wliao1/}{linkedin.com/in/wliao1}}
 %\hspace{2cm}833 Williamsburg Blvd., Downin gtown, PA 19335, United States
 \end{resume_header}
 
@@ -105,8 +107,8 @@ urlcolor=MyDarkBlue}
 	
 	\begin{resume_subsection}[College Park, MD (Aug. 2020 -- May. 2024)]{University of Maryland, College Park}
     	\begin{subitems}
-        \item Bachelor of Science - BS, Mathematics \hspace*{0pt}\hfill GPA: 3.94 / 4.00 
-      	\item Bachelor of Science - BS, Computer Science   
+        \item Bachelor of Science - BS, Computer Science \hspace*{0pt}\hfill GPA: 3.94 / 4.00 
+      	\item Bachelor of Science - BS, Mathematics   
       	\item Banneker/Key (Full Ride) Scholarship Recipient
       	% \item GPA: 3.93
       	%\item Relevant Coursework - Probability Theory, Theory \& Methods of Statistics, 
@@ -120,9 +122,11 @@ urlcolor=MyDarkBlue}
 
 \begin{resume_section}{Work Experience}
 \begin{resume_employer}{Amazon Web Services, Inc.}{Software Development Engineer}{Seattle, WA}{Jul. 2024 --}
-  \item Developed service in Native AWS to export data from an internal multi-primary regionally replicated data store to
-  AWS S3 buckets, helping to accelerate org-wide adoption of data store. (Java)
-  \item Designed and created operational dashboard to monitor metrics and provide alerts for system failures.
+  \item Owned end-to-end design of task dispatcher for multi-tenant orchestration platform, supporting 1000+ TPS per tenant with configurable scheduling strategies (metered, burst, exponential). Implemented distributed token-bucket throttling to guarantee tenant isolation and prevent noisy-neighbor degradation. (Java)
+  \item Designed event pipeline consuming DynamoDB streams via Lambda, emitting workflow and status events to EventBridge. Implemented batch processing with bisect-on-failure for fault isolation and operator tooling to bypass poison-pill records.
+  \item Led regional expansion of distributed document store to 2 new same-partition regions, requiring careful orchestration of control plane self-bootstrapping on the data plane. Extended CI/CD pipelines and IaC; authored documentation that accelerated subsequent region builds.
+  \item Designed statistics aggregation component that processes DynamoDB streams from a sharded task-state table, batching and aggregating changes across shards to efficiently compute per-job task state counts without per-record write overhead.
+  \item Built automated backfill tooling (Step Functions, Lambda) to re-index 1M+ documents into ElasticSearch after cluster failures, reducing recovery time from dozens of manual hours to under 24 hours automated.
 \end{resume_employer}
 \begin{resume_employer}{University of Maryland}{Teaching Assistant}{College Park, MD}{Aug. 2021 -- Dec. 2023}
   \item Led discussion/lab sections to reinforce class concepts and introduce extra material.
@@ -133,14 +137,11 @@ urlcolor=MyDarkBlue}
   % - CMSC351 - Algorithms - asymptotic analysis, sorting and searching algorithms, order statistics, graphs and trees, NP-Completeness
 \end{resume_employer}
 \begin{resume_employer}{Amazon Web Services, Inc.}{Software Development Engineer Intern}{Seattle, WA}{Jun. 2023 -- Aug. 2023}
-	\item Developed service in Native AWS to export data from an internal multi-primary regionally replicated data store to
-	AWS S3 buckets, helping to accelerate org-wide adoption of data store. (Java)
-  \item Designed and created operational dashboard to monitor metrics and provide alerts for system failures.
+  \item Designed and implemented paginated ETL pipeline (Lambda, Step Functions) to export data from multi-region document store to S3, with checkpointing for outage recovery. Used DynamoDB GSI to isolate export reads from the critical write path.
 \end{resume_employer}
 \begin{resume_employer}{Capital One}{Software Engineer Intern (Technology Internship Program - Center for Machine Learning)}{McLean, VA}{Jun. 2022 -- Aug. 2022}
-	\item Designed and implemented dataset access service using Flask and AWS DynamoDB for real-time model serving platform. (Python)
-	\item Trained and optimized an XGBoost machine learning model for credit card fraud detection; used Dask for parallel processing of large datasets. 
-	\item Deployed model onto production Kubernetes-based platform for use as an highly available API microservice.
+  \item Designed and implemented feature serving API (Flask, DynamoDB) to provide real-time feature retrieval for ML model inference on fraud detection platform. (Python)
+  \item Trained and optimized XGBoost model for credit card fraud detection using Dask for parallel processing; deployed to production Kubernetes cluster as an API microservice.
 \end{resume_employer}  
 \end{resume_section}
 
@@ -161,24 +162,14 @@ urlcolor=MyDarkBlue}
    \end{subitems}
  \end{resume_subsection}
 
- \begin{resume_subsection}[]{Lakers Analysis Project}
-  \begin{subitems}
-  	\item Analyzed historical NBA team data using statistical and data science techniques to explain Lakers' underperformance relative to expectations in 2022.
-  	\item Created data visualizations using seaborn and matplotlib to aid in exposition.
-  \end{subitems}
-  \end{resume_subsection}
-  
 \end{resume_section}
 
 \begin{resume_section}{Skills}
-  \begin{nospacetabbing}
-  \textbf{Programming Languages} \= Proficient: Python, C, Java; Familiar: R, OCaml, C++, Rust, Racket, Scheme\\*
-  \textbf{Technical Skills}  \> NumPy, Pandas, Scikit-learn, XGBoost, Dask, Matplotlib, Jupyter, MATLAB, \LaTeX \\ *
-  \> Kubernetes, Docker, Flask, AWS s3, AWS DynamoDB, JavaFX, VSCode, Git, Agile Dev.
-  %\textbf{Test Scores} \> SAT: 1560 (Math: 800, EBRW: 760)\\* %
-  %\textbf{Interests} \> Data Analytics, Machine Learning, Consumer Electronics, Design, Computer Software, Stationary\\*
-
-  \end{nospacetabbing}
+  \begin{tabbedsection}{0pt}
+  \textbf{Languages:} Java, Python, C; Familiarity in: Rust, C++, OCaml \\[0.3em]
+  \textbf{AWS:} DynamoDB, Lambda, Step Functions, Kinesis, EventBridge, S3, CDK, CloudFormation \\[0.3em]
+  \textbf{Tools:} Kubernetes, Docker, Flask, Git, NumPy, Pandas, Scikit-learn, XGBoost, Dask
+  \end{tabbedsection}
 \end{resume_section}
 
 \end{document}
